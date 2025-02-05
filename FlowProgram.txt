@@ -1,0 +1,22 @@
+Overall Flow of the System:
+1. User navigates to Login/Registration page.
+    The system checks if the user is already logged in by checking the session.
+    If logged in, redirect to dashboard.php.
+
+2. User submits login credentials (username and password):
+    The system hashes the password and checks the database for a matching user.
+    If a user is found:
+        Log the user in and redirect to the dashboard.
+    If no user is found:
+        Show a failure message.
+ 
+3. User submits registration details:
+    The system checks if the username already exists.
+    
+    If the username is available:
+        Create the new account and show a success message.
+    If the username already exists:
+        Show a "username already exists" message.
+
+4. User clicks "Logout":
+    The system clears the session and destroys the login state, redirecting the user back to the homepage.

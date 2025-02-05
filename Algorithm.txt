@@ -1,0 +1,51 @@
+Algorithm for Login, Registration, and Logout System : 
+
+1. Database Connection (database.php)
+    Step 1: Define the database connection parameters. 
+            Set up the hostname, username, password, and database name.
+    Step 2: Establish the connection to the MySQL database using mysqli_connect(). 
+            If the connection is unsuccessful, display an error message and stop the process using die().
+    Step 3: If the connection is successful, proceed with executing queries and further operations.
+
+2. Registration Process (register.php)
+    Step 1: Start a session using session_start().
+    Step 2: Initialize variables for registration messages and their corresponding styles ($register_msg and $msg_class).
+    Step 3: Check if the user is already logged in by checking $_SESSION["is_Login"].
+        If true, redirect the user to dashboard.php using header("Location: dashboard.php").
+    Step 4: Check if the form has been submitted (isset($_POST["register"])).
+    Step 5: Retrieve the user’s username and password from the form.
+    Step 6: Hash the password using SHA-256 algorithm ($hash_password = hash("sha256", $password)).
+    Step 7: Attempt to insert the new user into the database.
+        If successful:
+            Set the registration message to "Account Created Successfully".
+            Set the message style to success.
+        If unsuccessful:
+            Set the registration message to "Account Creation Failed".
+            Set the message style to failed.
+    Step 8: Handle any exceptions (like if the username already exists in the database).
+        If a username already exists, set the registration message to "Username already exists" and set the message style to exists.
+    Step 9: Display the registration message to the user (success, failure, or already exists).
+
+3. Login Process (login.php)
+    Step 1: Start a session with session_start().
+    Step 2: Initialize variables for login messages ($login_msg) and their styles ($msg_class).
+    Step 3: Check if the user is already logged in by checking $_SESSION["is_Login"].
+        If true, redirect the user to dashboard.php.
+    Step 4: Check if the login form has been submitted (isset($_POST['login'])).
+    Step 5: Retrieve the username and password from the form.
+    Step 6: Hash the provided password with SHA-256 ($hash_password = hash('sha256', $password)).
+    Step 7: Query the database to check if the username and hashed password match an existing user.
+    Step 8: If a matching user is found ($result->num_rows > 0):
+        Fetch the user’s data and store it in the session (e.g., $_SESSION["username"] = $data['username']).
+        Set the session variable $_SESSION["is_Login"] = true to indicate the user is logged in.
+        Redirect the user to dashboard.php.
+    Step 9: If no matching user is found, display the message "Login Failed" and set the message style to failed.
+
+
+4. Logout Process (logout.php)
+    Step 1: Start the session with session_start().
+    Step 2: Check if the user has clicked the "logout" button (isset($_POST['logout'])).
+    Step 3: If clicked:
+        Clear all session variables using session_unset().
+        Destroy the session completely using session_destroy().
+        Redirect the user back to the homepage (header('Location: index.php')).
